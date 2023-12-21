@@ -17,11 +17,13 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
-# Get the API key from the environment variable
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-
-if not client.api_key:
-    raise ValueError("No OpenAI API key found")
+# Only do this if not in debug mode
+if os.getenv("DEBUG") != "true":
+    # Get the API key from the environment variable
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    
+    if not client.api_key:
+        raise ValueError("No OpenAI API key found")
 
 # be sure to delete or comment out. for debug only
 # print(client.api_key) 
@@ -75,5 +77,5 @@ async def generate_recipe(request: RecipePrompt):
     else:
         recipe = await generate_cocktail_recipe("Generate a cocktail recipe called the "+request.prompt)
         image_url = await generate_image("An image of a cocktail: " + request.prompt + "which is made from the following recipe: " + recipe)
-        
+
     return {"recipe_name": request.prompt, "recipe": recipe, "image_url": image_url} 

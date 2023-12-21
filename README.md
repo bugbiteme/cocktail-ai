@@ -29,6 +29,10 @@ venv\Scripts\activate     # For Windows
 pip install --upgrade pip
 pip install -r requirements.txt
 
+export OPENAI_API_KEY=<your own OpenAI key>
+
+export DEBUG=true #to call mock API that is free and fast for testing purposes
+
 uvicorn main:app --reload
 ```
 

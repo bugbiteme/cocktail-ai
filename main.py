@@ -67,7 +67,13 @@ async def usage():
 
 @app.post("/generate-recipe/")
 async def generate_recipe(request: RecipePrompt):
-    recipe = await generate_cocktail_recipe("Generate a cocktail recipe called the "+request.prompt)
-    image_url = "placeholder.url"
-    image_url = await generate_image("An image of a cocktail: " + request.prompt + "which is made from the following recipe: " + recipe)
+
+    # If environment variable DEBUG=true call a mock API fo testing
+    if os.getenv("DEBUG") == "true":
+        recipe = "\nMocktail\n1. Add Water\n2. Add Ice\n3. Add a twist of this and that\n4. Enjoy your "+ request.prompt
+        image_url = "https://www.cupofzest.com/wp-content/uploads/2022/03/Blue-Lagoon-Mocktail-Thumbnail-2-Web.jpg.jpg"
+    else:
+        recipe = await generate_cocktail_recipe("Generate a cocktail recipe called the "+request.prompt)
+        image_url = await generate_image("An image of a cocktail: " + request.prompt + "which is made from the following recipe: " + recipe)
+        
     return {"recipe_name": request.prompt, "recipe": recipe, "image_url": image_url} 

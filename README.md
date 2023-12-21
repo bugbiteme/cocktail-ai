@@ -12,7 +12,7 @@ To build and run a container:
 
 ```
 podman build -t cocktail-ai .
-podman run -e OPENAI_API_KEY=$OPENAI_API_KEY -p 8000:8080 cocktail-ai
+podman run -e OPENAI_API_KEY=$OPENAI_API_KEY -e DEBUG=[true/false] -p 8000:8080 cocktail-ai
 ```
 
 This command runs the podman container, mapping port 8000 on your local machine to port 8080 in the podman container (which your FastAPI app should be listening on).  

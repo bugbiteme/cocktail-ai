@@ -1,8 +1,15 @@
-FROM python:3.12-slim
+FROM registry.access.redhat.com/ubi9/ubi-minimal:latest
 
 WORKDIR /app
 
 COPY . /app
+
+RUN microdnf update -y && \ 
+    microdnf install python -y && \
+    python3.9 -m ensurepip && \
+    python3.9 -m pip install --upgrade pip
+
+RUN python --version
 
 RUN pip install --no-cache-dir -r requirements.txt
 

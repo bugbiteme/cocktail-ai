@@ -36,7 +36,7 @@ export DEBUG=true #to call mock API that is free and fast for testing purposes
 uvicorn main:app --reload
 ```
 
-Note: If using OpenShift DevSpaces, there is no need to create a virtual environment (venv)
+Note: If using OpenShift DevSpaces, there is no need to create a virtual environment (venv). Also no need to run pip install locally.
 
 ## To clean up python virtual environment
 - If you are currently inside a virtual environment, you'll need to deactivate it first. You can do this by running the deactivate command in your terminal or command prompt.  
